@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+38698f92-e93e-5c20-a076-59c3418b967b	1698	analyte	7a7ec76d-36fb-4c6c-b4eb-6b7642aae81e	Item is noncanonical	Notification	2011-03-14T00:00:00	Approved	Tumor Adjacent Normal
