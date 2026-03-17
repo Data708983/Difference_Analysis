@@ -1,2 +1,0 @@
-id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
-fddb98f4-f268-572f-bfbc-023f34dc446f	829	case	e57b296a-80e9-4446-a3d1-3dbfeaf04f5e	Item may not meet study protocol	Observation	2010-10-28T00:00:00	Approved	Case identified (by Duke) as a secondary GBM; original annotation 06/22/09

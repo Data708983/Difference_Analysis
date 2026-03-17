@@ -1,2 +1,0 @@
-id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
-b1bd40a8-b47b-58f1-823c-0d4da5e8eb4a	5008	case	3dddfc44-7bb1-4974-8a65-a84fd4bac484	Prior malignancy	Notification	2012-03-09T00:00:00	Approved	Prior Prostate malignancy as per pathology report treatment not specified.

@@ -1,2 +1,0 @@
-id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
-4d65251b-efa6-56e2-808d-b7f5e9efcf05	3179	case	c2399f5d-dc29-42e9-81f1-1d164d4cc55d	Neoadjuvant therapy	Notification	2011-07-27T00:00:00	Approved	Subject positive for neoadjuvant therapy.

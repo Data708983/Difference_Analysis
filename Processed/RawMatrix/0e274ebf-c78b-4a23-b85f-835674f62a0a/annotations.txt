@@ -1,4 +1,0 @@
-id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
-bc5c5700-5249-5682-9a64-d0bbcaecb844	570	case	0164acd3-34db-4d35-b96c-936daad0ff22	Item in special subset	Notification	2010-07-30T00:00:00	Approved	[schaefc]: NECROSIS_STUDY
-4b8d2f19-0719-5873-b15e-728ecb667541	1588	analyte	a5e5bd60-02ce-41fa-b973-2eb537e85a6e	Item is noncanonical	Notification	2011-03-14T00:00:00	Approved	Necrosis Study
-eed4198f-d469-55e3-beae-a015a93d455a	1589	analyte	a5e5bd60-02ce-41fa-b973-2eb537e85a6e	Item in special subset	Notification	2011-03-14T00:00:00	Approved	Necrosis Study
