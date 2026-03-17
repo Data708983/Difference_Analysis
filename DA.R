@@ -54,7 +54,25 @@ for (i in 1:nrow(sample_sheet2)) {
 zero_percentage <- rowMeans(TCGA_GBM_Exp[, 4:ncol(TCGA_GBM_Exp)] == 0) 
 TCGA_GBM_Exp1 <- TCGA_GBM_Exp[zero_percentage < 0.6, ] # 筛选出表达超过60%的基因
 
+install.packages("BiocManager")
+library(BiocManager)
+BiocManager::install("edgeR")
+library(edgeR)
+TCGA_GBM_Exp1 = avereps(TCGA_GBM_Exp1[,-c(1:3)],ID = TCGA_GBM_Exp$gene_name) # 对重复基因名取平均表达量，并将基因名作为行名
+TCGA_GBM_Exp1 <- TCGA_GBM_Exp1[rowMeans(TCGA_GBM_Exp1)>100,] # 根据需要去除低表达基因，这里设置的平均表达量100为阈值
+
+# 创建样本分组
+library(stringr)
+tumor <- colnames(TCGA_GBM_Exp1)[substr(colnames(TCGA_GBM_Exp1),14,15) == "01"]
+normal <- colnames(TCGA_GBM_Exp1)[substr(colnames(TCGA_GBM_Exp1),14,15) == "11"]
+tumor_sample <- TCGA_GBM_Exp1[,tumor]
+normal_sample <- TCGA_GBM_Exp1[,normal]
+exprSet_by_group <- cbind(tumor_sample,normal_sample)
+gene_name <- rownames(exprSet_by_group)
+exprSet <- cbind(gene_name, exprSet_by_group)  # 将gene_name列设置为数据框的行名，合并后又添加一列基因名
 
 
-
+# 存储counts和TPM数据
+fwrite(exprSet,"./Processed/RawData/TCGA_GBM_Count.txt") # txt格式
+write.csv(exprSet, "./Processed/RawData/csv/TCGA_GBM_Count.csv", row.names = FALSE) # csv格式
 
