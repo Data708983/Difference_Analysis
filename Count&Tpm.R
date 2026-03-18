@@ -6,6 +6,7 @@ if(!dir.exists("./Processed"))  dir.create("./Processed")
 if(!dir.exists("./Processed/RawMatrix"))  dir.create("./Processed/RawMatrix")
 if(!dir.exists("./Processed/RawData"))  dir.create("./Processed/RawData")
 if(!dir.exists("./Processed/RawData/csv"))  dir.create("./Processed/RawData/csv")
+if(!dir.exists("./Processed/RawData/rda"))  dir.create("./Processed/RawData/rda")
 if(!file.exists("./Data/gdc_download_20260315_132413.267760.tar.gz")){
   warnings('源数据不存在，请下载https://github.com/Data708983/Difference_Analysis/releases/download/source/gdc_download_20260315_132413.267760.tar.gz到Data文件夹中\n')
 }
@@ -104,3 +105,10 @@ write.csv(exprSet_counts, "./Processed/RawData/csv/TCGA_GBM_Count.csv", row.name
 
 fwrite(exprSet_tpm, "./Processed/RawData/TCGA_GBM_TPM.txt")
 write.csv(exprSet_tpm, "./Processed/RawData/csv/TCGA_GBM_TPM.csv", row.names = FALSE)
+
+# 储存下游需要数据
+tumor_sample <- tumor_sample_counts
+normal_sample <- normal_sample_counts
+exprSet_by_group <- exprSet_counts_by_group
+save(tumor_sample, normal_sample, exprSet_by_group, file = './Processed/RawData/rda/Difference.rda')
+
