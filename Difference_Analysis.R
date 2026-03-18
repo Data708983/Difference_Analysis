@@ -122,3 +122,74 @@ p <- ggplot(GBM_Match_DEG, aes(x = logFC, y = log10FDR, colour = DEG)) +
 pdf(file = './Processed/vocano.pdf', width = 10, height = 6)
 p
 dev.off()
+
+# 热图
+# 加载所需包
+library(pheatmap)
+library(RColorBrewer)
+
+# --- 1. 准备数据 ---
+# 提取显著差异的基因（这里沿你火山图中的阈值: |logFC| > 2 & FDR < 0.05）
+sig_genes <- GBM_Match_DEG[GBM_Match_DEG$DEG %in% c("Up", "Down"), ]
+
+# 可以根据需要选择展示的基因数量，例如：
+# 1) 全部显著基因（如果数量不多）
+# 2) 前50个上调 + 前50个下调（按logFC排序）
+# 这里以选择前50上调、前50下调为例：
+sig_genes_up <- sig_genes[sig_genes$DEG == "Up", ]
+sig_genes_down <- sig_genes[sig_genes$DEG == "Down", ]
+
+# 按logFC绝对值排序，选取前N个
+N <- 10
+top_up <- rownames(sig_genes_up[order(sig_genes_up$logFC, decreasing = TRUE), ])[1:min(N, nrow(sig_genes_up))]
+top_down <- rownames(sig_genes_down[order(sig_genes_down$logFC, decreasing = FALSE), ])[1:min(N, nrow(sig_genes_down))]
+selected_genes <- c(top_up, top_down)
+selected_genes <- selected_genes[!is.na(selected_genes)] # 去除可能存在的NA
+
+# 提取这些基因的表达矩阵（使用原始的、经过过滤和标准化的计数数据？还是logCPM？）
+# 通常热图使用log2(CPM+1)或log2(TPM+1)来展示，使表达分布更接近正态，视觉效果更好。
+# 我们可以从DGElist对象中获取logCPM值。
+logCPM <- cpm(DGElist, log = TRUE, prior.count = 1) # 获取log2(CPM + prior.count)
+
+# 筛选出我们选中的基因
+heatmap_data <- logCPM[rownames(logCPM) %in% selected_genes, ]
+
+# 确保基因顺序与selected_genes一致
+heatmap_data <- heatmap_data[match(selected_genes, rownames(heatmap_data)), ]
+
+# --- 2. 准备样本注释信息 ---
+# 创建一个数据框，用于标注样本的组别（Tumor/Normal）
+annotation_col <- data.frame(
+  Group = group_list
+)
+rownames(annotation_col) <- colnames(heatmap_data)
+
+# 定义注释的颜色
+ann_colors <- list(
+  Group = c(tumor = "brown", normal = "steelblue") # 与火山图颜色保持一致
+)
+
+# --- 3. 绘制热图并保存 ---
+# 对表达矩阵进行行（基因）缩放，使每个基因在不同样本中的表达均值为0，标准差为1。
+# 这样可以更好地展示基因在样本间的相对表达高低（上调/下调）。
+heatmap_data_scaled <- t(scale(t(heatmap_data)))
+
+# 设置表达颜色的渐变
+color_gradient <- colorRampPalette(c("navy", "white", "firebrick3"))(100)
+
+# 绘制热图
+pdf(file = './Processed/heatmap_topDEGs.pdf', width = 12, height = 10)
+pheatmap(heatmap_data_scaled,
+         cluster_rows = TRUE,        # 对基因聚类
+         cluster_cols = TRUE,        # 对样本聚类
+         show_rownames = FALSE,       # 基因太多时，行名显示为FALSE，若想显示可改为TRUE
+         show_colnames = FALSE,       # 样本名显示
+         annotation_col = annotation_col, # 添加样本分组注释条
+         annotation_colors = ann_colors,
+         color = color_gradient,
+         main = "Top 10 Up-regulated and Top 10 Down-regulated Genes",
+         fontsize = 8,
+         border_color = NA)           # 去掉单元格边框，使图形更清爽
+dev.off()
+message("热图已保存至 ./Processed/heatmap_topDEGs.pdf")
+

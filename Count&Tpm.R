@@ -17,6 +17,7 @@ untar(tar_file, exdir = extract_dir)
 # 整理
 rm(list = ls())
 setwd('./')
+if (!requireNamespace("data.table", quietly = TRUE)) install.packages("data.table")
 library(data.table)
 library(dplyr)
 sample_sheet <- fread("./Data/gdc_sample_sheet.2026-03-15.tsv")# 读取样本信息
