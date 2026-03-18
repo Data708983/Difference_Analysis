@@ -17,3 +17,4 @@
 > - 分析数据以及🌋火山图pdf
 
 ![example_picture](./example.png)
+![example_picture2](./example2.png)
