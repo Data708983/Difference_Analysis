@@ -10,7 +10,7 @@
 > 本项目参考了[TCGA 差异表达分析及可视化](https://blog.csdn.net/swangee/article/details/141646920)博客内容
 
 > 🗃️Difference_Analysis.Rproj为项目文件，请依次执行：
-  - 📄Count&Tpm.R
-  - 📄Difference_Analysis.R
-  你将在📁./Processed/文件夹中获得：
-  - 分析数据以及🌋火山图pdf
+> - 📄Count&Tpm.R
+> - 📄Difference_Analysis.R
+> 你将在📁./Processed/文件夹中获得：
+> - 分析数据以及🌋火山图pdf
