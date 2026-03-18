@@ -15,3 +15,5 @@
 
 > 你将在📁./Processed/文件夹中获得：
 > - 分析数据以及🌋火山图pdf
+
+![example_picture](./example.png)
