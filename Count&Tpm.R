@@ -8,7 +8,7 @@ if(!dir.exists("./Processed/RawData"))  dir.create("./Processed/RawData")
 if(!dir.exists("./Processed/RawData/csv"))  dir.create("./Processed/RawData/csv")
 if(!dir.exists("./Processed/RawData/rda"))  dir.create("./Processed/RawData/rda")
 if(!file.exists("./Data/gdc_download_20260315_132413.267760.tar.gz")){
-  warnings('源数据不存在，请下载https://github.com/Data708983/Difference_Analysis/releases/download/source/gdc_download_20260315_132413.267760.tar.gz到Data文件夹中\n')
+  cat('源数据不存在，请下载https://github.com/Data708983/Difference_Analysis/releases/download/source/gdc_download_20260315_132413.267760.tar.gz到Data文件夹中\n')
 }
 tar_file = "./Data/gdc_download_20260315_132413.267760.tar.gz"
 extract_dir = "./Processed/RawMatrix"
